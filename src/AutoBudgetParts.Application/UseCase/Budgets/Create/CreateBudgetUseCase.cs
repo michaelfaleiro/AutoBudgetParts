@@ -1,4 +1,5 @@
 using AutoBudgetParts.Communication.Request;
+using AutoBudgetParts.Communication.Request.Budgets;
 using AutoBudgetParts.Communication.Response;
 using AutoBudgetParts.Communication.Response.Budgets;
 using AutoBudgetParts.Core.Entities;
@@ -23,6 +24,7 @@ public class CreateBudgetUseCase(IBudgetRepository budgetRepository)
                 budget.CarModel,
                 budget.CarPlate,
                 budget.CarVin,
+                budget.Status,
                 budget.CreatedAt,
                 budget.UpdatedAt
             )

@@ -1,4 +1,4 @@
-namespace AutoBudgetParts.Communication.Request;
+namespace AutoBudgetParts.Communication.Request.Budgets;
 
 public record CreateBudgetRequest(
     string ClientName,

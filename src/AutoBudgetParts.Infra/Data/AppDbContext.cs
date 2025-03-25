@@ -5,8 +5,8 @@ namespace AutoBudgetParts.Infra.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Budget> Budgets { get; set; }
-    
+    public DbSet<Budget> Budgets { get; set; } = null!;
+    public DbSet<ItemBudget> ItemsBudget { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

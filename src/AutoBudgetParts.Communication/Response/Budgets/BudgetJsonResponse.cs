@@ -6,6 +6,7 @@ public record BudgetJsonResponse(
     string CarModel,
     string CarPlate,
     string CarVin,
+    string Status,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

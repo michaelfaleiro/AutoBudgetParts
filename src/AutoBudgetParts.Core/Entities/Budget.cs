@@ -1,3 +1,5 @@
+using AutoBudgetParts.Exception.ExceptionsBase;
+
 namespace AutoBudgetParts.Core.Entities;
 
 public class Budget : Entity
@@ -9,6 +11,7 @@ public class Budget : Entity
         CarPlate = carPlate;
         CarVin = carVin;
         ItemsBudget = new List<ItemBudget>();
+        Status = "Aberto";
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -17,9 +20,10 @@ public class Budget : Entity
     public string CarPlate { get; private set; }
     public string CarVin { get; private set; }
     public IList<ItemBudget> ItemsBudget { get; private set; }
+    public string Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-   
+
     public void Update(string clientName, string carModel, string carPlate, string carVin)
     {
         ClientName = clientName;
@@ -28,27 +32,43 @@ public class Budget : Entity
         CarVin = carVin;
         UpdatedAt = DateTime.UtcNow;
     }
-    
+
     public void AddItemBudget(ItemBudget itemBudget)
     {
-        if (ItemsBudget.Any(x => x.Sku == itemBudget.Sku))
-        {
-            throw new Exception($"Item with SKU {itemBudget.Sku} already exists in the budget.");
-        }
-        
         ItemsBudget.Add(itemBudget);
         UpdatedAt = DateTime.UtcNow;
     }
-    
+
     public void RemoveItemBudget(int id)
     {
-        var itemBudget = ItemsBudget.FirstOrDefault(x => x.Id == id);
-        if (itemBudget is null)
-        {
-            throw new Exception($"Item with Id {id} does not exist in the budget.");
-        }
-        
+        var itemBudget = ItemsBudget.FirstOrDefault(x => x.Id == id)
+                        ?? throw new BussinesException($"Item with Id {id} does not exist in the budget.");
+
         ItemsBudget.Remove(itemBudget);
+        UpdatedAt = DateTime.UtcNow;
+    }
+    
+    public void UpdateItemBudget(int itemBudgetId, string sku, string name, string brand, decimal price, int quantity)
+    {
+        var itemBudget = ItemsBudget.FirstOrDefault(x => x.Id == itemBudgetId)
+                        ?? throw new BussinesException($"Item with Id {itemBudgetId} does not exist in the budget.");
+
+        itemBudget.Update(sku, name, brand, price, quantity);
+        UpdatedAt = DateTime.UtcNow;
+    }
+    
+    public void ChangeStatus(string status)
+    {
+        Status = status;
+        UpdatedAt = DateTime.UtcNow;
+    }
+    
+    public void ApproveItemBudget(int itemBudgetId)
+    {
+        var itemBudget = ItemsBudget.FirstOrDefault(x => x.Id == itemBudgetId)
+                        ?? throw new BussinesException($"Item with Id {itemBudgetId} does not exist in the budget.");
+
+        itemBudget.Approve();
         UpdatedAt = DateTime.UtcNow;
     }
 }

@@ -36,6 +36,11 @@ public class BudgetMapping : IEntityTypeConfiguration<Budget>
             .HasMaxLength(17)
             .IsRequired();
 
+        builder.Property(x=> x.Status)
+            .HasColumnType("VARCHAR")
+            .HasMaxLength(30)
+            .IsRequired();
+            
         builder.Property(x => x.CreatedAt);
         
         builder.Property(x => x.UpdatedAt); 
@@ -45,6 +50,7 @@ public class BudgetMapping : IEntityTypeConfiguration<Budget>
             .HasForeignKey("BudgetId")
             .OnDelete(DeleteBehavior.Cascade);
 
+        
         builder.HasIndex(x => x.Id);
         
         builder.HasIndex(x => x.CarPlate);

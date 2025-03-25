@@ -34,13 +34,8 @@ public class ItemBudget : Entity
     
     public void Approve()
     {
-        Approved = true;
+        Approved = !Approved;
         UpdatedAt = DateTime.UtcNow;
     }
     
-    public void Disapprove()
-    {
-        Approved = false;
-        UpdatedAt = DateTime.UtcNow;
-    }
 }
