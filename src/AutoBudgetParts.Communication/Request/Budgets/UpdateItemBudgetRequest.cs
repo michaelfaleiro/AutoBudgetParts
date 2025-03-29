@@ -6,4 +6,4 @@ public record UpdateItemBudgetRequest(
     string Brand,
     decimal Price,
     int Quantity) : 
-    AddItemBudgetRequest( Sku, Name, Brand, Price, Quantity);
+    AddItemBudgetRequest(Sku, Name, Brand, Price, Quantity);

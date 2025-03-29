@@ -12,6 +12,7 @@ public class Budget : Entity
         CarVin = carVin;
         ItemsBudget = new List<ItemBudget>();
         Status = "Aberto";
+        Observation = string.Empty;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -21,6 +22,7 @@ public class Budget : Entity
     public string CarVin { get; private set; }
     public IList<ItemBudget> ItemsBudget { get; private set; }
     public string Status { get; private set; }
+    public string Observation { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
 
@@ -69,6 +71,12 @@ public class Budget : Entity
                         ?? throw new BussinesException($"Item with Id {itemBudgetId} does not exist in the budget.");
 
         itemBudget.Approve();
+        UpdatedAt = DateTime.UtcNow;
+    }
+    
+    public void UpdateObservation(string observation)
+    {
+        Observation = observation;
         UpdatedAt = DateTime.UtcNow;
     }
 }

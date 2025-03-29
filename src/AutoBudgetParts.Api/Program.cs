@@ -1,5 +1,6 @@
 using AutoBudgetParts.Api.Filters;
 using AutoBudgetParts.Application.Services.Budgets;
+using AutoBudgetParts.Application.Services.Quotes;
 using AutoBudgetParts.Infra;
 using AutoBudgetParts.Infra.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(config => config.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddInfra();
 builder.Services.AddBudgetService();
+builder.Services.AddQuoteService();
 
 
 var app = builder.Build();

@@ -40,7 +40,10 @@ public class BudgetMapping : IEntityTypeConfiguration<Budget>
             .HasColumnType("VARCHAR")
             .HasMaxLength(30)
             .IsRequired();
-            
+
+        builder.Property(x => x.Observation)
+            .HasColumnType("TEXT");
+        
         builder.Property(x => x.CreatedAt);
         
         builder.Property(x => x.UpdatedAt); 

@@ -3,19 +3,18 @@ using AutoBudgetParts.Communication.Request.Budgets;
 using AutoBudgetParts.Core.Repositories.Budgets;
 using AutoBudgetParts.Exception.ExceptionsBase;
 
-namespace AutoBudgetParts.Application.UseCase.Budgets.ChangeStatus;
+namespace AutoBudgetParts.Application.UseCase.Budgets.UpdateObservation;
 
-public class ChangeStatusBudgetUseCase(IBudgetRepository budgetRepository) : ValidateBase<ChangeStatusBudgetRequest>
+public class UpdateObservationBudgetUseCase(IBudgetRepository budgetRepository) : ValidateBase<UpdateObservationBudgetRequest>
 {
-    public async Task ExecuteAsync(int id, ChangeStatusBudgetRequest request)
+    public async Task ExecuteAsync(int id, UpdateObservationBudgetRequest request)
     {
-        Validate(request, new ChangeStatusBudgetValidator());
+        Validate(request, new UpdateObservationBudgetValidator());
         
         var budget = await budgetRepository.GetByIdAsync(id) 
                      ?? throw new NotFoundException("Budget not found");
         
-        budget.ChangeStatus(request.Status);
-
+        budget.UpdateObservation(request.Observation);
         await budgetRepository.UpdateAsync(budget);
     }
     

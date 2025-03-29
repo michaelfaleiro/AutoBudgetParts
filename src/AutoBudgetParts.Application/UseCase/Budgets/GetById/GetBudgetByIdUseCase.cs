@@ -32,6 +32,7 @@ public class GetBudgetByIdUseCase(IBudgetRepository budgetRepository)
                     item.UpdatedAt
                 )).ToList(),
                 budget.Status,
+                budget.Observation,
                 budget.CreatedAt,
                 budget.UpdatedAt
             )

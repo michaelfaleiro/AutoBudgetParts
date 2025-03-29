@@ -3,6 +3,7 @@ using System;
 using AutoBudgetParts.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AutoBudgetParts.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250328005310_Add Observation on Table Budget")]
+    partial class AddObservationonTableBudget
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,65 +127,6 @@ namespace AutoBudgetParts.Infra.Migrations
                     b.ToTable("ItemBudget", (string)null);
                 });
 
-            modelBuilder.Entity("AutoBudgetParts.Core.Entities.ItemQuote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("INT");
-
-                    b.Property<int?>("QuoteId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("QuoteId");
-
-                    b.ToTable("ItemQuote", (string)null);
-                });
-
-            modelBuilder.Entity("AutoBudgetParts.Core.Entities.Quote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BudgetId")
-                        .HasColumnType("INT");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<DateTime?>("UpdateAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BudgetId");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Quotes", (string)null);
-                });
-
             modelBuilder.Entity("AutoBudgetParts.Core.Entities.ItemBudget", b =>
                 {
                     b.HasOne("AutoBudgetParts.Core.Entities.Budget", null)
@@ -191,22 +135,9 @@ namespace AutoBudgetParts.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("AutoBudgetParts.Core.Entities.ItemQuote", b =>
-                {
-                    b.HasOne("AutoBudgetParts.Core.Entities.Quote", null)
-                        .WithMany("ItemsQuotes")
-                        .HasForeignKey("QuoteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("AutoBudgetParts.Core.Entities.Budget", b =>
                 {
                     b.Navigation("ItemsBudget");
-                });
-
-            modelBuilder.Entity("AutoBudgetParts.Core.Entities.Quote", b =>
-                {
-                    b.Navigation("ItemsQuotes");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,7 @@ public record BudgetFullJsonResponse(
     string CarVin,
     IEnumerable<ItemBudgetJsonResponse> Items,
     string Status,
+    string Observation,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

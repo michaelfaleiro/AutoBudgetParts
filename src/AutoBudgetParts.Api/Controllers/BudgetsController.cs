@@ -6,6 +6,7 @@ using AutoBudgetParts.Application.UseCase.Budgets.GetAll;
 using AutoBudgetParts.Application.UseCase.Budgets.GetById;
 using AutoBudgetParts.Application.UseCase.Budgets.RemoveItemBudget;
 using AutoBudgetParts.Application.UseCase.Budgets.UpdateItemBudget;
+using AutoBudgetParts.Application.UseCase.Budgets.UpdateObservation;
 using AutoBudgetParts.Communication.Request;
 using AutoBudgetParts.Communication.Request.Budgets;
 using AutoBudgetParts.Communication.Response;
@@ -16,7 +17,7 @@ namespace AutoBudgetParts.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class Budgets : ControllerBase
+public class BudgetsController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseJson<BudgetJsonResponse>), StatusCodes.Status201Created)]
@@ -112,6 +113,18 @@ public class Budgets : ControllerBase
         [FromServices] ChangeStatusBudgetUseCase changeStatusBudgetUseCase)
     {
         await changeStatusBudgetUseCase.ExecuteAsync(id, request);
+        return NoContent();
+    }
+    
+    [HttpPatch("{id:int}/observation")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateObservationBudget(
+        int id,
+        [FromBody] UpdateObservationBudgetRequest request,
+        [FromServices] UpdateObservationBudgetUseCase updateObservationBudgetUseCase)
+    {
+        await updateObservationBudgetUseCase.ExecuteAsync(id, request);
         return NoContent();
     }
 

@@ -1,4 +1,4 @@
-using AutoBudgetParts.Communication.Request;
+using AutoBudgetParts.Application.Validator;
 using AutoBudgetParts.Communication.Request.Budgets;
 using AutoBudgetParts.Communication.Response;
 using AutoBudgetParts.Communication.Response.Budgets;
@@ -7,11 +7,13 @@ using AutoBudgetParts.Core.Repositories.Budgets;
 
 namespace AutoBudgetParts.Application.UseCase.Budgets.Create;
 
-public class CreateBudgetUseCase(IBudgetRepository budgetRepository)
+public class CreateBudgetUseCase(IBudgetRepository budgetRepository) : ValidateBase<CreateBudgetRequest>
 {
 
     public async Task<ResponseJson<BudgetJsonResponse>> ExecuteAsync(CreateBudgetRequest request)
     {
+        Validate(request, new CreateBudgetValidator());
+        
         var budget = new Budget(
             request.ClientName, request.CarModel, request.CarPlate, request.CarVin);
        

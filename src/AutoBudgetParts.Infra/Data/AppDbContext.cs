@@ -7,6 +7,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Budget> Budgets { get; set; } = null!;
     public DbSet<ItemBudget> ItemsBudget { get; set; } = null!;
+    public DbSet<Quote> Quotes { get; set; } = null!;
+    public DbSet<ItemQuote> ItemsQuotes { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

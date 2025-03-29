@@ -6,6 +6,7 @@ using AutoBudgetParts.Application.UseCase.Budgets.GetAll;
 using AutoBudgetParts.Application.UseCase.Budgets.GetById;
 using AutoBudgetParts.Application.UseCase.Budgets.RemoveItemBudget;
 using AutoBudgetParts.Application.UseCase.Budgets.UpdateItemBudget;
+using AutoBudgetParts.Application.UseCase.Budgets.UpdateObservation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoBudgetParts.Application.Services.Budgets;
@@ -22,6 +23,7 @@ public static class BudgetService
         services.AddScoped<RemoveItemBudgetUseCase>();
         services.AddScoped<ChangeStatusBudgetUseCase>();
         services.AddScoped<ApprovedItemBudgetUseCase>();
+        services.AddScoped<UpdateObservationBudgetUseCase>();
 
         return services;
     }
